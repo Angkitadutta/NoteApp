@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">NoteApp</string>
     <string name="delete_note">DeleteANote</string>
+    <string name="Updated_note_time">UpdateTime</string>
+    <string name="create_note_fab">CreateANote</string>
+    <string name="note_title">NoteTitle</string>
+    <string name="save_note">Save Note</string>
+    <string name="update_note">Update Note</string>
+    <string name="note_title_hint">Enter Note Title</string>
+    <string name="note_details">Note Details...</string>
+    <string name="note_last_updated">Last Updated: %1$s</string>
 </resources>

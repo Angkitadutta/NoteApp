@@ -1,5 +1,6 @@
 package com.example.simplenoteapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -16,6 +17,7 @@ class AddEditNoteActivity : AppCompatActivity() {
     lateinit var binding: ActivityAddEditNoteBinding
     lateinit var noteViewModel: NoteViewModel
     var noteId = -1
+    @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,26 +29,22 @@ class AddEditNoteActivity : AppCompatActivity() {
             insets
         }
 
-        noteViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application)).get(
-            NoteViewModel::class.java)
+        noteViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[NoteViewModel::class.java]
         val noteType = intent.getStringExtra("noteType")
         if (noteType.equals("Edit")) {
-            //on below line we are setting data to edit text.
             val noteTitle = intent.getStringExtra("noteTitle")
             val noteDescription = intent.getStringExtra("noteDescription")
             noteId = intent.getIntExtra("noteId", -1)
-            binding.btnSave.text = "Update Note"
+            binding.btnSave.text = this.getString(R.string.update_note)
             binding.etNoteName.setText(noteTitle)
             binding.etNoteDesc.setText(noteDescription)
         } else {
-            binding.btnSave.text = "Save Note"
+            binding.btnSave.text = this.getString(R.string.save_note)
         }
 
         binding.btnSave.setOnClickListener {
-            //on below line we are getting title and desc from edit text.
             val noteTitle = binding.etNoteName.text.toString()
             val noteDescription = binding.etNoteDesc.text.toString()
-            //on below line we are checking the type and then saving or updating the data.
             if (noteType.equals("Edit")) {
                 if (noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
                     val sdf = SimpleDateFormat("dd MMM, yyyy - HH:mm")
@@ -60,12 +58,10 @@ class AddEditNoteActivity : AppCompatActivity() {
                 if (noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
                     val sdf = SimpleDateFormat("dd MMM, yyyy - HH:mm")
                     val currentDateAndTime: String = sdf.format(Date())
-                    //if the string is not empty we are calling a add note method to add data to our room database.
                     noteViewModel.addNote(Note(noteTitle, noteDescription, currentDateAndTime))
                     Toast.makeText(this, "$noteTitle Added", Toast.LENGTH_LONG).show()
                 }
             }
-            //opening the new activity on below line
             startActivity(Intent(applicationContext, MainActivity::class.java))
             this.finish()
         }

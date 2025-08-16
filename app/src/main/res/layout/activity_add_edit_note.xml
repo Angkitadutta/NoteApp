@@ -8,7 +8,6 @@
     android:background="@color/white"
     tools:context=".AddEditNoteActivity">
 
-    <!-- Title -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilTitleParent"
         android:layout_width="0dp"
@@ -30,14 +29,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/shade_2"
-            android:hint="Enter Note Title"
+            android:hint="@string/note_title_hint"
             android:textSize="16sp"
             android:padding="12dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Description -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -62,7 +60,7 @@
             android:layout_height="match_parent"
             android:background="@color/shade_2"
             android:gravity="start|top"
-            android:hint="Note Details..."
+            android:hint="@string/note_details"
             android:inputType="textMultiLine"
             android:scrollbars="vertical"
             android:padding="12dp"
@@ -71,17 +69,16 @@
             android:textColorHint="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Save Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSave"
-        android:layout_width="0dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="💾 Save Note"
+        android:text="@string/save_note"
         android:textAllCaps="false"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
+        android:textColor="@color/black_shade_1"
         android:backgroundTint="@color/shade_2"
         app:cornerRadius="25dp"
         app:elevation="6dp"

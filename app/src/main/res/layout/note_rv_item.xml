@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:padding="4dp"
-            android:text="Note"
-            android:textColor="@color/white"
+            android:text="@string/note_title"
+            android:textColor="@color/black_shade_1"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/ivDelete"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,10 +32,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tvNoteTitle"
             android:layout_margin="3dp"
-            android:layout_toLeftOf="@id/ivDelete"
+            android:layout_toStartOf="@id/ivDelete"
             android:padding="4dp"
-            android:text="Updated At"
-            android:textColor="@color/white"
+            android:text="@string/Updated_note_time"
+            android:textColor="@color/black_shade_1"
             android:textSize="13sp"
             app:layout_constraintEnd_toStartOf="@+id/ivDelete"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
+            app:tint="@color/black" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

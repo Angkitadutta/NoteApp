@@ -10,15 +10,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.simplenoteapp.databinding.ActivityMainBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity(), NoteClickInterface, NoteClickDeleteInterface {
     private lateinit var binding: ActivityMainBinding
-
-//    lateinit var notesRV: RecyclerView
-//    lateinit var addFABBtn: FloatingActionButton
     lateinit var noteViewModel: NoteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,13 +29,14 @@ class MainActivity : AppCompatActivity(), NoteClickInterface, NoteClickDeleteInt
         binding.rvNotes.layoutManager = LinearLayoutManager(this)
         val noteAdapter = NoteRVAdapter(this, this, this)
         binding.rvNotes.adapter = noteAdapter
-        noteViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application)).get(
-            NoteViewModel::class.java)
+        noteViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[NoteViewModel::class.java]
         noteViewModel.allNotes.observe(this, Observer { list ->
             list?.let {
                 noteAdapter.updateList(it)
             }
         })
+
+
         binding.fabAddNote.setOnClickListener {
             val intent = Intent(this@MainActivity, AddEditNoteActivity::class.java)
             startActivity(intent)
@@ -49,9 +45,7 @@ class MainActivity : AppCompatActivity(), NoteClickInterface, NoteClickDeleteInt
     }
 
     override fun onDeleteIconClick(note: Note) {
-        //in on note click method we are calling delete method from our viw modal to delete our not.
         noteViewModel.deleteNote(note)
-        //displaying a toast message
         Toast.makeText(this, "${note.noteTitle} Deleted", Toast.LENGTH_LONG).show()
     }
 
