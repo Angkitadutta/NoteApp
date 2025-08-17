@@ -1,61 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="5dp"
+    android:layout_margin="8dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="4dp"
     app:cardBackgroundColor="@color/shade_1">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tvNoteTitle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:padding="4dp"
             android:text="@string/note_title"
-            android:textColor="@color/black_shade_1"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/ivDelete"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textStyle="bold"
+            android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="0dp"
+            android:id="@+id/tvNoteDescription"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvNoteTitle"
-            android:layout_margin="3dp"
-            android:layout_toStartOf="@id/ivDelete"
-            android:padding="4dp"
-            android:text="@string/Updated_note_time"
-            android:textColor="@color/black_shade_1"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toStartOf="@+id/ivDelete"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNoteTitle" />
+            android:layout_marginTop="4dp"
+            android:text="@string/note_description"
+            android:textSize="15sp"
+            android:textColor="@color/black" />
 
-        <ImageView
-            android:id="@+id/ivDelete"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="3dp"
-            android:contentDescription="@string/delete_note"
-            android:padding="3dp"
-            android:src="@drawable/icon_delete"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/black" />
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            tools:ignore="UseCompoundDrawables">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/Updated_note_time"
+                android:textSize="12sp"
+                android:textColor="@color/black" />
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:src="@drawable/icon_delete"
+                android:contentDescription="@string/delete_note"
+                app:tint="@color/black" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

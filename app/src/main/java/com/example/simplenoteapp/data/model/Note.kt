@@ -1,4 +1,4 @@
-package com.example.simplenoteapp
+package com.example.simplenoteapp.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

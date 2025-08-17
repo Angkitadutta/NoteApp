@@ -1,4 +1,4 @@
-package com.example.simplenoteapp
+package com.example.simplenoteapp.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import com.example.simplenoteapp.data.model.Note
+import com.example.simplenoteapp.viewmodel.NoteViewModel
+import com.example.simplenoteapp.R
 import com.example.simplenoteapp.databinding.ActivityAddEditNoteBinding
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -29,7 +32,10 @@ class AddEditNoteActivity : AppCompatActivity() {
             insets
         }
 
-        noteViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[NoteViewModel::class.java]
+        noteViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        )[NoteViewModel::class.java]
         val noteType = intent.getStringExtra("noteType")
         if (noteType.equals("Edit")) {
             val noteTitle = intent.getStringExtra("noteTitle")

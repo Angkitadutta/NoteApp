@@ -1,4 +1,4 @@
-package com.example.simplenoteapp
+package com.example.simplenoteapp.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.simplenoteapp.data.model.Note
+import com.example.simplenoteapp.R
 
 class NoteRVAdapter(
     val context: Context,
@@ -22,6 +24,7 @@ class NoteRVAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder,position: Int) {
         holder.noteTitle?.text = allNotes[position].noteTitle
+        holder.noteDesc?.text = allNotes[position].noteDescription
 //        holder.noteTimeStamp?.text ="Last Updated: " + allNotes[position].timeStamp
 
         val timeStamp = allNotes[position].timeStamp
@@ -49,6 +52,7 @@ class NoteRVAdapter(
     private val allNotes = ArrayList<Note>()
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val noteTitle: TextView? = itemView.findViewById<TextView>(R.id.tvNoteTitle)
+        val noteDesc: TextView? = itemView.findViewById<TextView>(R.id.tvNoteDescription)
         val noteTimeStamp: TextView? = itemView.findViewById<TextView>(R.id.tvDate)
         val noteDelete: ImageView? = itemView.findViewById<ImageView>(R.id.ivDelete)
     }

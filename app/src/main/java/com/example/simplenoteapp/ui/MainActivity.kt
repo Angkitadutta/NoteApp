@@ -1,4 +1,4 @@
-package com.example.simplenoteapp
+package com.example.simplenoteapp.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.simplenoteapp.data.model.Note
+import com.example.simplenoteapp.adapter.NoteClickDeleteInterface
+import com.example.simplenoteapp.adapter.NoteClickInterface
+import com.example.simplenoteapp.adapter.NoteRVAdapter
+import com.example.simplenoteapp.viewmodel.NoteViewModel
+import com.example.simplenoteapp.R
 import com.example.simplenoteapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), NoteClickInterface, NoteClickDeleteInterface {
@@ -26,10 +32,19 @@ class MainActivity : AppCompatActivity(), NoteClickInterface, NoteClickDeleteInt
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        binding.rvNotes.layoutManager = LinearLayoutManager(this)
+        val staggeredGridLayoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL) // 2 columns
+        staggeredGridLayoutManager.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+        binding.rvNotes.layoutManager = staggeredGridLayoutManager
+        binding.rvNotes.setHasFixedSize(true)
+
         val noteAdapter = NoteRVAdapter(this, this, this)
         binding.rvNotes.adapter = noteAdapter
-        noteViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[NoteViewModel::class.java]
+
+        noteViewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
+        )[NoteViewModel::class.java]
         noteViewModel.allNotes.observe(this, Observer { list ->
             list?.let {
                 noteAdapter.updateList(it)
