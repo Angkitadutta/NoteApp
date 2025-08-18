@@ -1,9 +1,13 @@
 package com.example.simplenoteapp.ui
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.view.MenuInflater
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -18,10 +22,11 @@ import com.example.simplenoteapp.viewmodel.NoteViewModel
 import com.example.simplenoteapp.R
 import com.example.simplenoteapp.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), NoteClickInterface, NoteClickDeleteInterface {
+class MainActivity : AppCompatActivity(), NoteClickInterface, NoteClickDeleteInterface, PopupMenu.OnMenuItemClickListener {
     private lateinit var binding: ActivityMainBinding
     lateinit var noteViewModel: NoteViewModel
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -53,9 +58,48 @@ class MainActivity : AppCompatActivity(), NoteClickInterface, NoteClickDeleteInt
 
 
         binding.fabAddNote.setOnClickListener {
-            val intent = Intent(this@MainActivity, AddEditNoteActivity::class.java)
-            startActivity(intent)
-            this.finish()
+            binding.fabAddNote.setImageResource(R.drawable.icon_close)
+            val popup = PopupMenu(this, it)
+            val inflater: MenuInflater = popup.menuInflater
+            inflater.inflate(R.menu.home_pop_up_menu_items, popup.menu)
+
+            // Force icons to show
+//            try {
+//                val fields = popup.javaClass.getDeclaredField("mPopup")
+//                fields.isAccessible = true
+//                val menuPopupHelper = fields.get(popup)
+//                val classPopupHelper = Class.forName(menuPopupHelper.javaClass.name)
+//                val setForceIcons = classPopupHelper.getMethod("setForceShowIcon", Boolean::class.javaPrimitiveType)
+//                setForceIcons.invoke(menuPopupHelper, true)
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+
+            popup.setForceShowIcon(true)
+            popup.show()
+            PopupMenu(this, binding.fabAddNote).apply {
+                // MainActivity implements OnMenuItemClickListener.
+                setOnMenuItemClickListener(this@MainActivity)
+                inflate(R.menu.home_pop_up_menu_items)
+                show()
+            }
+//            val intent = Intent(this@MainActivity, AddEditNoteActivity::class.java)
+//            startActivity(intent)
+//            this.finish()
+        }
+    }
+
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.archive -> {
+                archive(item)
+                true
+            }
+            R.id.delete -> {
+                delete(item)
+                true
+            }
+            else -> false
         }
     }
 

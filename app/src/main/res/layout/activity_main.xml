@@ -31,7 +31,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="20dp"
-        android:backgroundTint="@color/black_shade_new_1"
+        android:backgroundTint="@color/shade_3"
         android:contentDescription="@string/create_note_fab"
         android:src="@drawable/icon_add"
         android:tint="@android:color/white"/>

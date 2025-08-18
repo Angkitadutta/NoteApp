@@ -10,4 +10,8 @@
     <string name="note_title_hint">Enter Note Title</string>
     <string name="note_details">Note Details...</string>
     <string name="note_last_updated">Last Updated: %1$s</string>
+    <string name="audio_menu_title">Audio</string>
+    <string name="text_menu_title">Text</string>
+    <string name="list_menu_title">List</string>
+    <string name="image_menu_title">Image</string>
 </resources>
