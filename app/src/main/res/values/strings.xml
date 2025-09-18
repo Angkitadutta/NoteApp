@@ -14,4 +14,7 @@
     <string name="text_menu_title">Text</string>
     <string name="list_menu_title">List</string>
     <string name="image_menu_title">Image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tap_mic_to_speak">Tap mic to speak</string>
 </resources>

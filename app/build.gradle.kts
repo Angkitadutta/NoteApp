@@ -71,5 +71,8 @@ dependencies {
     // Testing
     androidTestImplementation(libs.androidx.arch.core)
 
+    // splash
+//    implementation (libs.androidx.core.splashscreen)
+
 
 }
