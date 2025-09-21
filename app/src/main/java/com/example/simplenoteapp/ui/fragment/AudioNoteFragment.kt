@@ -16,6 +16,7 @@ import com.example.simplenoteapp.R
 import com.example.simplenoteapp.data.model.Note
 import com.example.simplenoteapp.databinding.ActivityMainBinding
 import com.example.simplenoteapp.databinding.FragmentAudioNoteBinding
+import com.example.simplenoteapp.ui.activity.MainActivity
 import com.example.simplenoteapp.viewmodel.NoteViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -39,8 +40,12 @@ class AudioNoteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAudioNoteBinding.inflate(inflater, container, false)
-        return binding.root
 
+        val args = arguments
+        val edit = args?.containsKey("noteId") == true
+        val nId = args?.getInt("noteId") ?: -1
+        val noteTitle = args?.getString("noteTitle") ?: ""
+        val noteDescription = args?.getString("noteDescription") ?: ""
         binding.ivMic.setOnClickListener {
             val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             intent.putExtra(
@@ -81,29 +86,46 @@ class AudioNoteFragment : Fragment() {
 //            binding.btnSave.text = this.getString(R.string.save_note)
 //        }
 
+        // Check if this is edit mode
+        val noteType = activity?.intent?.getStringExtra("noteType")
+        val isEdit = noteType == "Edit"
+        if (isEdit) {
+            binding.etNoteName.setText(noteTitle)
+            binding.etSpeechToText?.setText(noteDescription)
+            binding.btnSave.text = getString(R.string.update_note)
+
+            val noteTitle = activity?.intent?.getStringExtra("noteTitle") ?: ""
+            val noteDescription = activity?.intent?.getStringExtra("noteDescription") ?: ""
+            noteId = activity?.intent?.getIntExtra("noteId", -1) ?: -1
+
+            binding.etNoteName.setText(noteTitle)
+            binding.etSpeechToText.setText(noteDescription)
+            binding.btnSave.text = getString(R.string.update_note)
+        } else {
+            binding.btnSave.text = getString(R.string.save_note)
+        }
+
+
         binding.btnSave.setOnClickListener {
             val noteTitle = binding.etNoteName.text.toString()
             val noteDescription = binding.etSpeechToText.text.toString()
-//            if (noteType.equals("Edit")) {
-//                if (noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
-//                    val sdf = SimpleDateFormat("dd MMM, yyyy - HH:mm")
-//                    val currentDateAndTime: String = sdf.format(Date())
-//                    val updatedNote = Note(noteTitle, noteDescription, currentDateAndTime)
-//                    updatedNote.id = noteId
-//                    noteViewModel.updateNote(updatedNote)
-//                    Toast.makeText(context, "Note Updated..", Toast.LENGTH_LONG).show()
-//                }
-//            } else {
-                if (noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
-                    val sdf = SimpleDateFormat("dd MMM, yyyy - HH:mm")
-                    val currentDateAndTime: String = sdf.format(Date())
-                    noteViewModel.addNote(Note(noteTitle, noteDescription, currentDateAndTime))
-                    Toast.makeText(context, "$noteTitle Added", Toast.LENGTH_LONG).show()
-                }
-//            }
-//            startActivity(Intent(applicationContext, MainActivity::class.java))
-//            this.finish()
+
+            if (noteTitle.isNotEmpty() && noteDescription.isNotEmpty()) {
+                val sdf = SimpleDateFormat("dd MMM, yyyy - HH:mm")
+                val currentDateAndTime: String = sdf.format(Date())
+                noteViewModel.addNote(
+                    Note(noteTitle, noteDescription, currentDateAndTime)
+                )
+                Toast.makeText(context, "$noteTitle Added", Toast.LENGTH_LONG).show()
+            }
+
+            val intent = Intent(activity, MainActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
         }
+
+
+        return binding.root
     }
 
     override fun onActivityResult(

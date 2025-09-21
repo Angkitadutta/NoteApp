@@ -75,6 +75,7 @@ class AddEditNoteActivity : AppCompatActivity() {
 
     private fun noteStyle() {
         noteStyle = intent.getStringExtra("noteType").toString()
+        val editMode = intent.getStringExtra("editMode")
         when (noteStyle) {
             "audio" -> {
                 replaceFragment(AudioNoteFragment())
@@ -82,12 +83,22 @@ class AddEditNoteActivity : AppCompatActivity() {
             "text" -> {
                 replaceFragment(TextNoteFragment())
             }
-            "list" -> {
-                replaceFragment(ListNoteFragment())
+//            "list" -> {
+//                replaceFragment(ListNoteFragment())
+//            }
+//            "image" -> {
+//                replaceFragment(ImageNoteFragment())
+//            }
+        }
+
+        if (editMode == "Edit") {
+            val bundle = Bundle().apply {
+                putString("noteTitle", intent.getStringExtra("noteTitle"))
+                putString("noteDescription", intent.getStringExtra("noteDescription"))
+                putInt("noteId", intent.getIntExtra("noteId", -1))
             }
-            "image" -> {
-                replaceFragment(ImageNoteFragment())
-            }
+            val fragment = supportFragmentManager.findFragmentById(R.id.frameLayout)
+            fragment?.arguments = bundle
         }
     }
 

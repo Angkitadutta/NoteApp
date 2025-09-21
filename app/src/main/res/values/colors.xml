@@ -32,6 +32,7 @@
     <color name="dark_blue_shade_2">#17388E</color>
     <color name="light_blue_shade">#12B2E6</color>
     <color name="icon_color">#666666</color>
+    <color name="trans_color">#80FFFFFF</color>
 
 
 
