@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity(), NoteClickInterface, NoteClickDeleteInt
             binding.fabAddNote.setImageResource(R.drawable.icon_close)
             val popup = PopupMenu(this, it)
             val inflater: MenuInflater = popup.menuInflater
+            popup.setForceShowIcon(true)
             inflater.inflate(R.menu.home_pop_up_menu_items, popup.menu)
 
             // Force icons to show
@@ -75,7 +76,6 @@ class MainActivity : AppCompatActivity(), NoteClickInterface, NoteClickDeleteInt
 //                e.printStackTrace()
 //            }
 
-            popup.setForceShowIcon(true)
             popup.show()
             PopupMenu(this, binding.fabAddNote).apply {
                 // MainActivity implements OnMenuItemClickListener.
